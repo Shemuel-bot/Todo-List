@@ -1,3 +1,4 @@
+import { Update } from "./updateProjectList";
 const myProjects = [];
 
 function ImplementNewProjectButton(){
@@ -8,7 +9,7 @@ newProjectButton.addEventListener('click', ()=>CreateNameProjectInput());
 function MakeProject(name){
     const theProject = new Project(name);
     myProjects.push(theProject);
-    console.log(myProjects);
+    Update(theProject);
 }
 
 class Project {
@@ -34,6 +35,6 @@ function CreateNameProjectInput(){
     container.appendChild(addButton);
     container.appendChild(cancelButton);
 
-    document.getElementById('list-of-projects').appendChild(container);
+    document.getElementById('list-of-projects').prepend(container);
 }
 export{ImplementNewProjectButton, myProjects}
