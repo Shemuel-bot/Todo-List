@@ -123,3 +123,20 @@ li>button{
     background-color: #e5e7eb00;
     border-style: none;
 }
+form>button{
+    text-align: center;
+    height: 30px;
+    width: 50px;
+    border-radius: 5px;
+    border-style: none;
+    box-shadow: 0px 3px 10px rgba(175, 175, 175, 0.438);
+    background-color: #f7bebe;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: #cbd5e1;
+    padding: 8px;
+    border-radius: 5px;
+}
