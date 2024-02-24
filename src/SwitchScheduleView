@@ -1,3 +1,4 @@
+import{DisplayListItem, CreateListItem} from './AddTodoItem';
 function RemovePreviousDiv(){
     document.getElementById('today-task')?document.getElementById('today-task').remove():document.getElementById('future-task').remove();
 }
@@ -18,6 +19,7 @@ function DisplayTodoForm(id){
         prioritySelect.appendChild(option);
     }
     submitButton.textContent='Add';
+    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, id);});
     cancelButton.textContent='Cancel';
     cancelButton.addEventListener('click', ()=> form.remove());
     todoName.placeholder='name';
@@ -27,13 +29,14 @@ function DisplayTodoForm(id){
     form.appendChild(prioritySelect);
     form.appendChild(submitButton);
     form.appendChild(cancelButton);
-    document.getElementById(id).appendChild(form);
+    document.getElementById(id).prepend(form);
 }
 
 function DisplayTodoList(divId, ulId){
     const listContainer = document.createElement('ul');
     listContainer.id=ulId;
     document.getElementById(divId).appendChild(listContainer);
+    DisplayListItem(ulId);
 }
 function DisplayScheduleDiv(id, divName){
     RemovePreviousDiv();
@@ -44,7 +47,7 @@ function DisplayScheduleDiv(id, divName){
     const newTodo=document.createElement('button');
 
     newTodo.textContent='';
-    newTodo.addEventListener('click', ()=>DisplayTodoForm('todo-list'));
+    newTodo.addEventListener('click', ()=>DisplayTodoForm(TodayOrFuture(id)));
     svg.setAttribute('xmnls', "http://www.w3.org/2000/svg");
     svg.setAttribute('viewBox', "0 0 24 24");
     svgPath.setAttributeNS(null,'d', "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z");
@@ -52,10 +55,13 @@ function DisplayScheduleDiv(id, divName){
     header.textContent=divName;
 
     document.getElementById('main-content').prepend(container);
-    DisplayTodoList(id, 'todo-list');
+    DisplayTodoList(id, TodayOrFuture(id));
     svg.append(svgPath);
     newTodo.appendChild(svg);
     container.appendChild(newTodo);
     container.prepend(header);
+}
+function TodayOrFuture(selected){
+    if(selected=='today-task'){return 'todo-list'}else{return 'future-todo-list'}
 }
 export{DisplayScheduleDiv, DisplayTodoForm, DisplayTodoList}

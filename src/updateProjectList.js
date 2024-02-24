@@ -1,5 +1,4 @@
 import { DisplayTodoForm } from "./SwitchScheduleView";
-import { DisplayTodoList } from "./SwitchScheduleView";
 function Update(project){
     const listItem = document.createElement('li');
     const newProject = document.createElement('button');
