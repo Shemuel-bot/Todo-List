@@ -1,4 +1,4 @@
-import { DisplayTodoForm } from "./SwitchScheduleView";
+import {DisplayTodoForm, DisplayTodoList} from "./AddProjectTodoItem";
 function Update(project){
     const listItem = document.createElement('li');
     const newProject = document.createElement('button');
@@ -22,7 +22,7 @@ function MakeProjectDiv(project){
     const newTodo=document.createElement('button');
 
     newTodo.textContent='';
-    newTodo.addEventListener('click', ()=> DisplayTodoForm('project-todo-list'));
+    newTodo.addEventListener('click', ()=> DisplayTodoForm('project-todo-list', project));
     svg.setAttribute('xmnls', "http://www.w3.org/2000/svg");
     svg.setAttribute('viewBox', "0 0 24 24");
     svgPath.setAttributeNS(null,'d', "M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z");
@@ -32,7 +32,7 @@ function MakeProjectDiv(project){
     header.textContent=project.name;
 
     document.getElementById('main-content').appendChild(projectDiv);
-    DisplayTodoList('Project-div','project-todo-list');
+    DisplayTodoList('Project-div','project-todo-list', project);
     projectDiv.appendChild(newTodo);
     projectDiv.prepend(header);
 }

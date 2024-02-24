@@ -15,7 +15,9 @@ function MakeProject(name){
 class Project {
     constructor(name){
         this.name = name;
+        this.ListItems=[];
     }
+    
 }
 
 function CreateNameProjectInput(){
