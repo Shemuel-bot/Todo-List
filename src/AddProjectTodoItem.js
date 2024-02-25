@@ -4,9 +4,9 @@ function DisplayTodoForm(id, project){
     const todoName = document.createElement('input');
     const description = document.createElement('textarea');
     const prioritySelect = document.createElement('select');
+    const dueDateInput=document.createElement('input');
     const submitButton = document.createElement('button');
     const cancelButton = document.createElement('button');
-
 
     prioritySelect.name='Priorty';
     for (let index = 1; index < 4; index++) {
@@ -16,16 +16,13 @@ function DisplayTodoForm(id, project){
         prioritySelect.appendChild(option);
     }
     submitButton.textContent='Add';
-    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, project);});
+    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, project, dueDateInput);});
     cancelButton.textContent='Cancel';
     cancelButton.addEventListener('click', ()=> form.remove());
     todoName.placeholder='name';
+    dueDateInput.type='date';
 
-    form.appendChild(todoName);
-    form.appendChild(description);
-    form.appendChild(prioritySelect);
-    form.appendChild(submitButton);
-    form.appendChild(cancelButton);
+    [todoName, description, prioritySelect, dueDateInput, submitButton, cancelButton].map((x)=>form.appendChild(x))
     document.getElementById(id).prepend(form);
 }
 function DisplayTodoList(divId, ulId, project){
@@ -52,21 +49,24 @@ function RemoveListItem(project, todoName){
         }
     })
 }
-function CreateListItem(todoName, project){
+function CreateListItem(todoName, project, date){
     const listItem = document.createElement('li');
     const checkBox = document.createElement('input');
     const para = document.createElement('p');
+    const label=document.createElement('p');
+    const dueDate = document.createElement('input');
     const trash = document.createElement('button');
 
-    trash.addEventListener('click', ()=>{listItem.remove(); RemoveListItem(project, todoName)});
-    checkBox.type='checkbox';
-    para.textContent=todoName;
-    listItem.id=todoName;
-
-    listItem.appendChild(checkBox);
-    listItem.appendChild(para);
     trash.textContent='trash';
-    listItem.appendChild(trash);
+    trash.addEventListener('click', ()=>{listItem.remove(); RemoveListItem(project, todoName)});
+    dueDate.type='date'
+    dueDate.value=date.value;
+    label.textContent='Due date:'
+    checkBox.type='checkbox';
+    para.textContent=todoName+' /';
+    listItem.id=todoName;
+    
+    [checkBox, para, label, dueDate, trash].map((x)=>listItem.appendChild(x));
     document.getElementById('project-todo-list').appendChild(listItem);
     StoreProjectListItems(project, listItem);
 }

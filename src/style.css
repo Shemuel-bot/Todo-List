@@ -115,7 +115,7 @@ select{
     margin-left: 20%;
     background-color: #fca5a5;
 }
-li{display: flex; align-items: center;}
+li{display: flex; align-items: center; gap: 10px;}
 li>button{
     height: 30px;
     width: 15rem;
