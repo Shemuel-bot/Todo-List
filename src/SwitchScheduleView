@@ -9,8 +9,8 @@ function DisplayTodoForm(id){
     const prioritySelect = document.createElement('select');
     const submitButton = document.createElement('button');
     const cancelButton = document.createElement('button');
-
-    prioritySelect.name='Priorty';
+    const calender=UseCalender(id);
+    prioritySelect.name='Priority';
     for (let index = 1; index < 4; index++) {
         const option=document.createElement('option');
         option.value=index;
@@ -18,15 +18,21 @@ function DisplayTodoForm(id){
         prioritySelect.appendChild(option);
     }
     submitButton.textContent='Add';
-    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, id);});
+    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, id, prioritySelect, calender);});
     cancelButton.textContent='Cancel';
     cancelButton.addEventListener('click', ()=> form.remove());
     todoName.placeholder='name';
 
-    [todoName, description, prioritySelect, submitButton, cancelButton].map((x)=>form.appendChild(x))
+    [todoName, description, prioritySelect, calender, submitButton, cancelButton].map((x)=>form.appendChild(x))
     document.getElementById(id).prepend(form);
 }
-
+function UseCalender(id){
+    if(id=='future-todo-list'){
+    const calender = document.createElement('input');
+    calender.type='date';
+    return calender;
+    }else return document.createElement('p');
+}
 function DisplayTodoList(divId, ulId){
     const listContainer = document.createElement('ul');
     listContainer.id=ulId;
