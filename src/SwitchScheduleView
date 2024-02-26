@@ -12,6 +12,7 @@ function DisplayTodoForm(id){
     const cancelButton = document.createElement('button');
     const calender=UseCalender(id);
     
+    
     prioritySelect.name='Priority';
     for (let index = 1; index < 4; index++) {
         const option=document.createElement('option');
@@ -21,7 +22,12 @@ function DisplayTodoForm(id){
     }
     
     submitButton.textContent='Add';
-    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, id, prioritySelect, calender);description.id=todoName.value; Descriptions.push(description); });
+    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, id, prioritySelect, calender);
+        description.id=todoName.value;
+        description.name=todoName.value;
+        Descriptions.push(description); 
+    });
+    
     cancelButton.textContent='Cancel';
     cancelButton.addEventListener('click', ()=> form.remove());
     todoName.placeholder='name';

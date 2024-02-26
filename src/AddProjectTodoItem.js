@@ -1,4 +1,4 @@
-import { StoreProjectListItems, myProjects } from "./StoreScheduleListValues";
+import { StoreProjectListItems, myProjects, GetDescription, Descriptions } from "./StoreScheduleListValues";
 function DisplayTodoForm(id, project){
     const form = document.createElement('form');
     const todoName = document.createElement('input');
@@ -8,7 +8,11 @@ function DisplayTodoForm(id, project){
     const cancelButton = document.createElement('button');
 
     submitButton.textContent='Add';
-    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, project, dueDateInput, description);});
+    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, project, dueDateInput);
+        description.id=todoName.value;
+        description.name=todoName.value;
+        Descriptions.push(description); 
+    });
     cancelButton.textContent='Cancel';
     cancelButton.addEventListener('click', ()=> form.remove());
     todoName.placeholder='name';
@@ -41,7 +45,7 @@ function RemoveListItem(project, todoName){
         }
     })
 }
-function CreateListItem(todoName, project, date, description){
+function CreateListItem(todoName, project, date){
     const listItem = document.createElement('li');
     const checkBox = document.createElement('input');
     const para = document.createElement('p');
@@ -58,7 +62,7 @@ function CreateListItem(todoName, project, date, description){
         prioritySelect.appendChild(option);
     }
     descriptionButton.textContent='Description'
-    descriptionButton.addEventListener('click',()=>CheckSaveDescription(description));
+    descriptionButton.addEventListener('click',()=>GetDescription(todoName));
     trash.textContent='trash';
     trash.addEventListener('click', ()=>{listItem.remove(); RemoveListItem(project, todoName)});
     dueDate.type='date'

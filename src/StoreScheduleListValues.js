@@ -9,9 +9,11 @@ function StoreProjectListItems(project, listItem){
     })
 }
 function GetDescription(descriptionName){
+    if(document.getElementById('description')){const element =document.getElementById('description'); element.id=element.name; element.remove();}
     Descriptions.map((x)=>{
         if(x.id == descriptionName){
-            document.getElementById('description').value=x.value;
+            document.getElementById('details').appendChild(x);
+            x.id='description';
         }
     })
 }
