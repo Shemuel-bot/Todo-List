@@ -8,7 +8,7 @@ function DisplayTodoForm(id, project){
     const cancelButton = document.createElement('button');
 
     submitButton.textContent='Add';
-    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, project, dueDateInput);});
+    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, project, dueDateInput, description);});
     cancelButton.textContent='Cancel';
     cancelButton.addEventListener('click', ()=> form.remove());
     todoName.placeholder='name';
@@ -41,12 +41,13 @@ function RemoveListItem(project, todoName){
         }
     })
 }
-function CreateListItem(todoName, project, date){
+function CreateListItem(todoName, project, date, description){
     const listItem = document.createElement('li');
     const checkBox = document.createElement('input');
     const para = document.createElement('p');
     const dueDate = document.createElement('input');
     const prioritySelect = document.createElement('select');
+    const descriptionButton = document.createElement('button');
     const trash = document.createElement('button');
 
     prioritySelect.name='Priorty';
@@ -56,6 +57,8 @@ function CreateListItem(todoName, project, date){
         option.textContent=`Priority ${index}`;
         prioritySelect.appendChild(option);
     }
+    descriptionButton.textContent='Description'
+    descriptionButton.addEventListener('click',()=>CheckSaveDescription(description));
     trash.textContent='trash';
     trash.addEventListener('click', ()=>{listItem.remove(); RemoveListItem(project, todoName)});
     dueDate.type='date'
@@ -64,8 +67,14 @@ function CreateListItem(todoName, project, date){
     para.textContent=todoName;
     listItem.id=todoName;
     
-    [checkBox, para, dueDate, prioritySelect, trash].map((x)=>listItem.appendChild(x));
+    [checkBox, para, dueDate, prioritySelect, descriptionButton, trash].map((x)=>listItem.appendChild(x));
     document.getElementById('project-todo-list').appendChild(listItem);
     StoreProjectListItems(project, listItem);
 }
-export{DisplayTodoForm, DisplayTodoList}
+function CheckSaveDescription(description){
+    document.getElementById('description').value=description.value;
+    document.getElementById('save-description').addEventListener('click', ()=>{
+        description.value=document.getElementById('description').value;
+    });
+}   
+export{DisplayTodoForm, DisplayTodoList, CheckSaveDescription}
