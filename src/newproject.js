@@ -1,5 +1,6 @@
 import { Update } from "./updateProjectList";
-const myProjects = [];
+import { SaveSiteData } from "./StoreScheduleListValues";
+import { myProjects } from "./StoreScheduleListValues";
 
 function ImplementNewProjectButton(){
 const newProjectButton = document.getElementById('new-project-button');
@@ -10,14 +11,16 @@ function MakeProject(name){
     const theProject = new Project(name);
     myProjects.push(theProject);
     Update(theProject);
+    SaveSiteData();
 }
 
-class Project {
-    constructor(name){
-        this.name = name;
-        this.ListItems=[];
-    }
-    
+function Project (name){
+        let projectName = name;
+        let listItemNames=[];
+        let calenderValues=[];
+        let dropdownValues=[];
+        let descriptions=[];
+        return{projectName, listItemNames, calenderValues, dropdownValues, descriptions}
 }
 
 function CreateNameProjectInput(){
@@ -30,7 +33,7 @@ function CreateNameProjectInput(){
     addButton.textContent='add';
     cancelButton.textContent='cancel';
 
-    addButton.onclick=()=>{container.remove(); MakeProject(inputName.value);}
+    addButton.onclick=()=>{container.remove(); MakeProject(inputName.value); SaveSiteData();}
     cancelButton.onclick=()=>container.remove();
 
     container.appendChild(inputName);

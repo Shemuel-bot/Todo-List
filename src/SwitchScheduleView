@@ -1,5 +1,5 @@
 import{DisplayListItem, CreateListItem} from './AddTodoItem';
-import{Descriptions} from './StoreScheduleListValues';
+import{todayDescriptions, scheduleDescriptions} from './StoreScheduleListValues';
 function RemovePreviousDiv(){
     document.getElementById('today-task')?document.getElementById('today-task').remove():document.getElementById('future-task').remove();
 }
@@ -22,10 +22,10 @@ function DisplayTodoForm(id){
     }
     
     submitButton.textContent='Add';
-    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, id, prioritySelect, calender);
-        description.id=todoName.value;
+    submitButton.addEventListener('click', ()=>{form.remove();
         description.name=todoName.value;
-        Descriptions.push(description); 
+        id=='todo-list'?todayDescriptions.push(description.value):scheduleDescriptions.push(description.value);
+        CreateListItem(todoName.value, id, prioritySelect.value, calender.value, false);
     });
     
     cancelButton.textContent='Cancel';

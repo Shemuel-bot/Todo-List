@@ -1,4 +1,4 @@
-import { StoreProjectListItems, myProjects, GetDescription, Descriptions } from "./StoreScheduleListValues";
+import { StoreProjectListItems, myProjects, GetDescription, todayDescriptions, SaveSiteData} from "./StoreScheduleListValues";
 function DisplayTodoForm(id, project){
     const form = document.createElement('form');
     const todoName = document.createElement('input');
@@ -8,10 +8,11 @@ function DisplayTodoForm(id, project){
     const cancelButton = document.createElement('button');
 
     submitButton.textContent='Add';
-    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, project, dueDateInput);
+    submitButton.addEventListener('click', ()=>{form.remove();CreateListItem(todoName.value, project, dueDateInput.value, false);
         description.id=todoName.value;
         description.name=todoName.value;
-        Descriptions.push(description); 
+        myProjects[myProjects.indexOf(project)].descriptions.push(description.value);
+        SaveSiteData();
     });
     cancelButton.textContent='Cancel';
     cancelButton.addEventListener('click', ()=> form.remove());
@@ -20,6 +21,7 @@ function DisplayTodoForm(id, project){
 
     [todoName, description, dueDateInput, submitButton, cancelButton].map((x)=>form.appendChild(x))
     document.getElementById(id).prepend(form);
+    
 }
 function DisplayTodoList(divId, ulId, project){
     const listContainer = document.createElement('ul');
@@ -28,24 +30,20 @@ function DisplayTodoList(divId, ulId, project){
     DisplayListItem(ulId, project);
 }
 function DisplayListItem(id, project){
-    myProjects.map((x)=>{
-        if(project.name==x.name){
-            x.ListItems.map((a)=>{
-                document.getElementById(id).appendChild(a);
-            })
-        }
-    })
+    console.log(myProjects[myProjects.indexOf(project)]);
+    console.log(myProjects)
+    console.log(project)
+    myProjects[myProjects.indexOf(project)].listItemNames.map((x)=>{
+        CreateListItem(x, project, myProjects[myProjects.indexOf(project)].calenderValues[myProjects[myProjects.indexOf(project)].listItemNames.indexOf(x)], true)
+    });
 }
 function RemoveListItem(project, todoName){
-    myProjects.map((x)=>{
-        if(x.name==project.name){
-            x.ListItems.map((a)=>{
-                if(a.id==todoName)x.ListItems.splice(x.ListItems.indexOf(a), 1)
-            })
-        }
-    })
+    myProjects[myProjects.indexOf(project)].listItemNames.splice(myProjects[myProjects.indexOf(project)].listItemNames.indexOf(todoName), 1);
+    myProjects[myProjects.indexOf(project)].calenderValues.splice(myProjects[myProjects.indexOf(project)].listItemNames.indexOf(todoName), 1);
+    myProjects[myProjects.indexOf(project)].descriptions.splice(myProjects[myProjects.indexOf(project)].listItemNames.indexOf(todoName), 1);
+    SaveSiteData();
 }
-function CreateListItem(todoName, project, date){
+function CreateListItem(todoName, project, date, loadPage){
     const listItem = document.createElement('li');
     const checkBox = document.createElement('input');
     const para = document.createElement('p');
@@ -62,23 +60,21 @@ function CreateListItem(todoName, project, date){
         prioritySelect.appendChild(option);
     }
     descriptionButton.textContent='Description'
-    descriptionButton.addEventListener('click',()=>GetDescription(todoName));
+    descriptionButton.addEventListener('click',()=>GetDescription(myProjects[myProjects.indexOf(project)].descriptions, myProjects[myProjects.indexOf(project)].listItemNames.indexOf(todoName)));
     trash.textContent='trash';
     trash.addEventListener('click', ()=>{listItem.remove(); RemoveListItem(project, todoName)});
     dueDate.type='date'
-    dueDate.value=date.value;
+    dueDate.value=date;
     checkBox.type='checkbox';
     para.textContent=todoName;
     listItem.id=todoName;
     
     [checkBox, para, dueDate, prioritySelect, descriptionButton, trash].map((x)=>listItem.appendChild(x));
     document.getElementById('project-todo-list').appendChild(listItem);
-    StoreProjectListItems(project, listItem);
+    if(!loadPage){
+    StoreProjectListItems(project, todoName, date);
+    }
+    SaveSiteData();
 }
-function CheckSaveDescription(description){
-    document.getElementById('description').value=description.value;
-    document.getElementById('save-description').addEventListener('click', ()=>{
-        description.value=document.getElementById('description').value;
-    });
-}   
-export{DisplayTodoForm, DisplayTodoList, CheckSaveDescription}
+
+export{DisplayTodoForm, DisplayTodoList, }

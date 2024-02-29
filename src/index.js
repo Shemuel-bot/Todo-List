@@ -1,7 +1,9 @@
 import{DisplayScheduleDiv,DisplayTodoForm} from './SwitchScheduleView'
 import{ImplementNewProjectButton, myProjects} from './newproject';
+import{LoadPage, SaveSiteData} from './StoreScheduleListValues';
 import './style.css';
 
+LoadPage();
 ImplementNewProjectButton();
 
 document.getElementById('today-button').addEventListener('click', ()=> DisplayScheduleDiv('today-task', 'Today'));

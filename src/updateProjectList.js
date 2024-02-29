@@ -1,11 +1,21 @@
 import {DisplayTodoForm, DisplayTodoList} from "./AddProjectTodoItem";
+import {myProjects} from './StoreScheduleListValues';
 function Update(project){
     const listItem = document.createElement('li');
     const newProject = document.createElement('button');
     newProject.addEventListener('click', ()=>MakeProjectDiv(project));
-    newProject.textContent=project.name;
+    newProject.textContent=project.projectName;
     listItem.appendChild(newProject);
     document.getElementById('list-of-projects').appendChild(listItem);
+}
+function DisplayProjects(){
+    myProjects.map((x)=>{const listItem = document.createElement('li');
+    const newProject = document.createElement('button');
+    newProject.addEventListener('click', ()=>MakeProjectDiv(x));
+    newProject.textContent=x.projectName;
+    listItem.appendChild(newProject);
+    document.getElementById('list-of-projects').appendChild(listItem);})
+    
 }
 
 function RemoveProject(){
@@ -29,11 +39,11 @@ function MakeProjectDiv(project){
     svg.append(svgPath);
     newTodo.appendChild(svg);
     projectDiv.id='Project-div';
-    header.textContent=project.name;
+    header.textContent=project.projectName;
 
     document.getElementById('main-content').appendChild(projectDiv);
     DisplayTodoList('Project-div','project-todo-list', project);
     projectDiv.appendChild(newTodo);
     projectDiv.prepend(header);
 }
-export{Update}
+export{Update, DisplayProjects}
