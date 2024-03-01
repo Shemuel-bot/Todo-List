@@ -25,7 +25,6 @@ function LoadPage(){
 
 
     myProjects = JSON.parse(localStorage.getItem('projects'));
-    console.log(JSON.parse(localStorage.getItem('projects')));
     console.log(myProjects);
     DisplayProjects();
     DisplayListItem('todo-list');
@@ -43,6 +42,7 @@ function SaveSiteData(){
 
 
     localStorage.setItem('projects', JSON.stringify(myProjects));
+    console.log(JSON.parse(localStorage.getItem('projects')));
 }
 function StoreProjectListItems(project, listItem, date){
     myProjects.map((x)=>{
@@ -62,16 +62,4 @@ function GetDescription(descriptionArray, index){
     console.log(descriptionArray);
 }
 
-export{todayListItems,
-    scheduelListItems, 
-    myProjects, 
-    todayDescriptions, 
-    todayDropdownValues, 
-    todayCalenderValues,
-    scheduleDropdownValues,
-    scheduleCalenderValues,
-    scheduleDescriptions,
-    StoreProjectListItems, 
-    GetDescription,
-    SaveSiteData, 
-    LoadPage}
+export{todayListItems,scheduelListItems, myProjects,todayDescriptions,todayDropdownValues,todayCalenderValues,scheduleDropdownValues,scheduleCalenderValues,scheduleDescriptions,StoreProjectListItems, GetDescription,SaveSiteData,LoadPage}

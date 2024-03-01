@@ -21,7 +21,6 @@ function DisplayTodoForm(id, project){
 
     [todoName, description, dueDateInput, submitButton, cancelButton].map((x)=>form.appendChild(x))
     document.getElementById(id).prepend(form);
-    
 }
 function DisplayTodoList(divId, ulId, project){
     const listContainer = document.createElement('ul');
@@ -30,9 +29,7 @@ function DisplayTodoList(divId, ulId, project){
     DisplayListItem(ulId, project);
 }
 function DisplayListItem(id, project){
-    console.log(myProjects[myProjects.indexOf(project)]);
     console.log(myProjects)
-    console.log(project)
     myProjects[myProjects.indexOf(project)].listItemNames.map((x)=>{
         CreateListItem(x, project, myProjects[myProjects.indexOf(project)].calenderValues[myProjects[myProjects.indexOf(project)].listItemNames.indexOf(x)], true)
     });
