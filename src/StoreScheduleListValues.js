@@ -22,7 +22,9 @@ function LoadPage(){
     scheduleCalenderValues= JSON.parse(localStorage.getItem('scheduleCalenderValues'));
     scheduleDescriptions= JSON.parse(localStorage.getItem('scheduleDescriptions'));
 
+    if(localStorage.getItem('projects') != ''){
     myProjects = JSON.parse(localStorage.getItem('projects'));
+    }
     DisplayProjects();
     DisplayListItem('todo-list');
 }
