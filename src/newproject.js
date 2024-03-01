@@ -22,7 +22,6 @@ function Project (name){
         let descriptions=[];
         return{projectName, listItemNames, calenderValues, dropdownValues, descriptions}
 }
-
 function CreateNameProjectInput(){
     const container = document.createElement('div');
     const inputName = document.createElement('input');
