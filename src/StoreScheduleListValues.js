@@ -12,7 +12,6 @@ let scheduleDescriptions=[];
 
 let myProjects = [];
 function LoadPage(){
-    //todayListItems = localStorage.getItem('today-list-item');
     todayListItems= JSON.parse(localStorage.getItem('TodayListItemNames'));
     todayDropdownValues= JSON.parse(localStorage.getItem('TodayDropdownValues'))
     todayCalenderValues= JSON.parse(localStorage.getItem('TodayCalenderValues'));
@@ -23,9 +22,7 @@ function LoadPage(){
     scheduleCalenderValues= JSON.parse(localStorage.getItem('scheduleCalenderValues'));
     scheduleDescriptions= JSON.parse(localStorage.getItem('scheduleDescriptions'));
 
-
     myProjects = JSON.parse(localStorage.getItem('projects'));
-    console.log(myProjects);
     DisplayProjects();
     DisplayListItem('todo-list');
 }
@@ -42,9 +39,8 @@ function SaveSiteData(){
 
 
     localStorage.setItem('projects', JSON.stringify(myProjects));
-    console.log(JSON.parse(localStorage.getItem('projects')));
 }
-function StoreProjectListItems(project, listItem, date){
+function StoreProjectListItemProperties(project, listItem, date){
     myProjects.map((x)=>{
         if(x.projectName==project.projectName){
             x.listItemNames.push(listItem);
@@ -62,4 +58,4 @@ function GetDescription(descriptionArray, index){
     console.log(descriptionArray);
 }
 
-export{todayListItems,scheduelListItems, myProjects,todayDescriptions,todayDropdownValues,todayCalenderValues,scheduleDropdownValues,scheduleCalenderValues,scheduleDescriptions,StoreProjectListItems, GetDescription,SaveSiteData,LoadPage}
+export{todayListItems,scheduelListItems, myProjects,todayDescriptions,todayDropdownValues,todayCalenderValues,scheduleDropdownValues,scheduleCalenderValues,scheduleDescriptions,StoreProjectListItemProperties, GetDescription,SaveSiteData,LoadPage}

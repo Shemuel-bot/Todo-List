@@ -1,4 +1,4 @@
-import { StoreProjectListItems, myProjects, GetDescription, todayDescriptions, SaveSiteData} from "./StoreScheduleListValues";
+import { StoreProjectListItemProperties, myProjects, GetDescription, todayDescriptions, SaveSiteData} from "./StoreScheduleListValues";
 function DisplayTodoForm(id, project){
     const form = document.createElement('form');
     const todoName = document.createElement('input');
@@ -69,7 +69,7 @@ function CreateListItem(todoName, project, date, loadPage){
     [checkBox, para, dueDate, prioritySelect, descriptionButton, trash].map((x)=>listItem.appendChild(x));
     document.getElementById('project-todo-list').appendChild(listItem);
     if(!loadPage){
-    StoreProjectListItems(project, todoName, date);
+    StoreProjectListItemProperties(project, todoName, date);
     }
     SaveSiteData();
 }
