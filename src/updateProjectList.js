@@ -24,7 +24,7 @@ function Update(project){
     
 }
 function DisplayProjects(){
-    myProjects.map((x)=>{const listItem = document.createElement('li');
+    if(myProjects.length > 0)myProjects.map((x)=>{const listItem = document.createElement('li');
     const newProject = document.createElement('button');
     const deleteProject = document.createElement('button');
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
